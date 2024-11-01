@@ -1,9 +1,3 @@
-%% Test
-
-L = detectSpotCenters(ImageTest)
-i_molecules
-j_molecules
-
 %% Load
 
 load("CoordinatesTest.mat")
@@ -11,10 +5,34 @@ load("ImageFloue.mat")
 load("ImagesPALM.mat")
 load("ImageTest.mat")
 
+%% Test
+% Affiche l'image originale
+
+close all
+
+imagesc(ImageTest);
+hold on;
+
+centers = detectSpotCenters(ImageTest);
+
+% Affichage des centres détectés en rouge
+plot(centers(:,1), centers(:,2), 'r+', 'MarkerSize', 8, 'DisplayName', 'Centre détectés');
+
+% Affichage des marqueurs "Ground Truth" (GT) en vert
+plot(j_molecules, i_molecules, 'g+', 'MarkerSize', 8, 'DisplayName', 'GT');
+
+
+legend('show');
+title('Image avec marqueurs détectés (rouge) et GT (vert)');
+hold off;
+
+%% Main
+
 % Paramètres
 upsampleFactor = 20; % Facteur de suréchantillonnage pour la super-résolution
 sigma = 1; % Ecart-type pour la pondération gaussienne
 intensityThreshold = 0; % Seuil d'intensité pour ignorer les points faibles
+cpt = 0; %Compteur de fluores
 
 % Initialisation de la matrice d'accumulation haute résolution
 [numRows, numCols, numFrames] = size(ImagesPALM);
@@ -52,6 +70,7 @@ for k = 1:numFrames
                 highResImage(yRange, xRange) = highResImage(yRange, xRange) + gaussianPSF;
             end
         end
+        cpt = cpt + 1;
     end
 end
 
