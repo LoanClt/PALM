@@ -55,13 +55,11 @@ for k = 1:numFrames
     end
 end
 
-% Redimensionner l'image haute résolution à la taille d'origine
 finalImage = highResImage;
 
 % Binariser l'image finale pour isoler les lettres
 level = graythresh(finalImage);
 binaryImage = imbinarize(finalImage, level);
-%binaryImage = finalImage; 
 
 % Appliquer un filtre morphologique pour lisser et réduire le bruit
 binaryImage = imclose(binaryImage, strel('disk', 1)); % Fermeture morphologique pour remplir les trous
@@ -72,10 +70,10 @@ figure;
 imshow(binaryImage);
 title('Image binarisée améliorée avec lissage morphologique');
 
-% Afficher l'image finale binarisée et lissée
+% Afficher l'image finale sans post-traitement
 figure;
 imshow(finalImage);
-title('Image binarisée améliorée sans lissage morphologique');
+title('Image sans traitement');
 
 % Fonction de détection des centres des spots
 function centers = detectSpotCenters(img)
