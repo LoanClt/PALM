@@ -1,13 +1,8 @@
-%% Load
-
-load("CoordinatesTest.mat")
-load("ImageFloue.mat")
-load("ImagesPALM.mat")
-load("ImageTest.mat")
-
 %% Test
+% Affiche l'image originale
 
 close all
+
 imagesc(ImageTest);
 hold on;
 
@@ -23,7 +18,12 @@ legend('show');
 title('Image avec marqueurs détectés (rouge) et GT (vert)');
 hold off;
 
-%% Main
+%% Load
+
+load("CoordinatesTest.mat")
+load("ImageFloue.mat")
+load("ImagesPALM.mat")
+load("ImageTest.mat")
 
 % Paramètres
 upsampleFactor = 20; % Facteur de suréchantillonnage pour la super-résolution
@@ -110,4 +110,8 @@ function centers = detectSpotCenters(img)
     for i = 1:num
         centers(i,:) = props(i).Centroid;
     end
+
+    %Affinage
+    centers(:,1) = centers(:,1)-0.5;
+    centers(:,2) = centers(:,2)-0.5;
 end
