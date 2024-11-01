@@ -6,10 +6,8 @@ load("ImagesPALM.mat")
 load("ImageTest.mat")
 
 %% Test
-% Affiche l'image originale
 
 close all
-
 imagesc(ImageTest);
 hold on;
 
@@ -20,7 +18,6 @@ plot(centers(:,1), centers(:,2), 'r+', 'MarkerSize', 8, 'DisplayName', 'Centre d
 
 % Affichage des marqueurs "Ground Truth" (GT) en vert
 plot(j_molecules, i_molecules, 'g+', 'MarkerSize', 8, 'DisplayName', 'GT');
-
 
 legend('show');
 title('Image avec marqueurs détectés (rouge) et GT (vert)');
